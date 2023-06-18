@@ -11,6 +11,7 @@ DEBUG = False
 
 ALLOWED_HOSTS = [
     'skate-shop-vue.vercel.app',
+    'skate-shop-api.vercel.app',
     'localhost',
 ]
 CORS_ALLOWED_ORIGINS = [
