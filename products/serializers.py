@@ -8,6 +8,7 @@ class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields = '__all__'
+        read_only_fields = '__all__'
 
     def get_size(self, product):
         return product.size.values_list('name', flat=True)
