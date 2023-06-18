@@ -7,10 +7,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = config('SECRET_KEY')
 
-DEBUG = config('DEBUG')
+DEBUG = False
 
 ALLOWED_HOSTS = [
-    '*'
+    'https://skate-shop-vue.vercel.app',
+    'localhost',
 ]
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:8080',
