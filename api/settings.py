@@ -10,7 +10,7 @@ SECRET_KEY = config('SECRET_KEY')
 DEBUG = False
 
 ALLOWED_HOSTS = [
-    'https://skate-shop-vue.vercel.app',
+    'skate-shop-vue.vercel.app',
     'localhost',
 ]
 CORS_ALLOWED_ORIGINS = [
