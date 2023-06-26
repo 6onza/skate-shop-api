@@ -19,3 +19,19 @@ class CategoryView(viewsets.ModelViewSet):
     def get_queryset(self):
         category = self.kwargs['category']
         return Product.objects.filter(category=category)
+
+
+class AllProductsViewDescByPrice(viewsets.ModelViewSet):
+    serializer_class = ProductSerializer
+    pagination_class = CustomPagination
+
+    def get_queryset(self):
+        return Product.objects.all().order_by('-price')
+
+
+class AllProductsViewAscByPrice(viewsets.ModelViewSet):
+    serializer_class = ProductSerializer
+    pagination_class = CustomPagination
+
+    def get_queryset(self):
+        return Product.objects.all().order_by('price')
