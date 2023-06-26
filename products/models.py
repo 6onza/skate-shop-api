@@ -20,8 +20,9 @@ CATEGORIES = (
 
 class Product(models.Model):
     name = models.CharField(max_length=100)
+    brand = models.CharField(max_length=100, blank=True, null=True, default='')
     description = models.TextField()
-    price = models.DecimalField(max_digits=10, decimal_places=2)
+    price = models.IntegerField(blank=True, null=True)
     category = models.CharField(max_length=100, choices=CATEGORIES, default='tablas')
     size = models.ManyToManyField('Size', blank=True, related_name='products')
     image_1 = CloudinaryField('image_1', blank=True, null=False)
