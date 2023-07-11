@@ -1,5 +1,6 @@
 from django.db import models
 from cloudinary.models import CloudinaryField
+from datetime import datetime
 
 CATEGORIES = (
     ('tablas', 'Tablas'),
@@ -28,6 +29,7 @@ class Product(models.Model):
     image_1 = CloudinaryField('image_1', blank=True, null=False)
     image_2 = CloudinaryField('image_2', blank=True, null=False)
     image_3 = CloudinaryField('image_3', blank=True, null=False)
+    created_at = models.DateTimeField(default=datetime.now)
 
     def __str__(self):
         return self.name
