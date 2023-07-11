@@ -1,37 +1,34 @@
-from django.shortcuts import render
-from rest_framework import viewsets
+from rest_framework import viewsets, filters
 from rest_framework.pagination import PageNumberPagination
 from .models import Product
 from .serializers import ProductSerializer
+from django.db.models import Q
+from rest_framework.views import APIView
 
 class CustomPagination(PageNumberPagination):
     page_size = 8
 
-class AllProductsView(viewsets.ModelViewSet):
-    queryset = Product.objects.all()
+class ProductsViewSet(viewsets.ModelViewSet):
     serializer_class = ProductSerializer
     pagination_class = CustomPagination
-
-class CategoryView(viewsets.ModelViewSet):
-    serializer_class = ProductSerializer
-    pagination_class = CustomPagination
+    filter_backends = [filters.OrderingFilter]
+    sort_by_fields = ['price', 'created_at']
+    sort_by = '-created_at'  # Default ordering
 
     def get_queryset(self):
-        category = self.kwargs['category']
-        return Product.objects.filter(category=category)
+        queryset = Product.objects.all()
 
+        categories = self.request.query_params.get('categories')
+        sort_by = self.request.query_params.get('sort_by')
 
-class AllProductsViewDescByPrice(viewsets.ModelViewSet):
-    serializer_class = ProductSerializer
-    pagination_class = CustomPagination
+        if categories == 'all':
+            return queryset
+        
+        if categories:
+            category_list = categories.split(',')  # Obtener una lista de categorías separadas por coma
+            queryset = queryset.filter(Q(category__in=category_list))
 
-    def get_queryset(self):
-        return Product.objects.all().order_by('-price')
+        if sort_by:
+            queryset = queryset.order_by(sort_by)
 
-
-class AllProductsViewAscByPrice(viewsets.ModelViewSet):
-    serializer_class = ProductSerializer
-    pagination_class = CustomPagination
-
-    def get_queryset(self):
-        return Product.objects.all().order_by('price')
+        return queryset
