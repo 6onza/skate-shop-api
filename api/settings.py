@@ -17,6 +17,7 @@ ALLOWED_HOSTS = [
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:8080',
     'https://skate-shop-vue.vercel.app'  # VueJS
+    'https://skate-shop-vue-2.vercel.app'  # VueJS
 ]
 
 cloudinary.config( 
