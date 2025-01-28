@@ -80,19 +80,31 @@ WSGI_APPLICATION = 'api.wsgi.application'
 
 
 DATABASES = {
+
+    'default': {
+
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+
+        'NAME': config('POSTGRES_DATABASE'),
+
+        'USER': config('POSTGRES_USER'),
+
+        'PASSWORD': config('POSTGRES_PASSWORD'),
+
+        'HOST': config('POSTGRES_HOST'),
+
+        'PORT': config('POSTGRES_PORT')
+
+    }
+
+}
+
+DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
         }
-    }
-
-if config('USE_SQLITE', default=False, cast=bool):
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
-    }
+}
 
 
 
